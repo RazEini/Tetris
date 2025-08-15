@@ -1,0 +1,26 @@
+# תיקיות פייתון זמניות
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# קבצי סביבה ווירטואלית
+env/
+venv/
+.venv/
+
+# קבצים של PyCharm או VS Code
+.idea/
+.vscode/
+
+# קבצים סודיים
+*.env
+config.json
+secrets.json
+
+# קבצי לוג
+*.log
+
+# קבצים אחרים מיותרים
+.DS_Store
+Thumbs.db
