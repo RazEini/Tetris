@@ -1,5 +1,4 @@
 import pygame
-
 from colors import Colors
 
 class Grid:
@@ -22,9 +21,7 @@ class Grid:
         return False
     
     def is_empty(self, row, col):
-        if self.grid[row][col] == 0:
-            return True
-        return False
+        return self.grid[row][col] == 0
     
     def is_row_full(self, row):
         for col in range(self.number_of_columns):
@@ -60,5 +57,10 @@ class Grid:
         for row in range(self.number_of_rows):
             for col in range(self.number_of_columns):
                 cell_value = self.grid[row][col]
-                cell_rect = pygame.Rect(col * self.cell_size + 11, row * self.cell_size + 11, self.cell_size -1, self.cell_size -1)
+                cell_rect = pygame.Rect(
+                    col * self.cell_size + 11,
+                    row * self.cell_size + 11,
+                    self.cell_size - 1,
+                    self.cell_size - 1
+                )
                 pygame.draw.rect(screen, self.colors[cell_value], cell_rect)

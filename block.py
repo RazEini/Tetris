@@ -31,11 +31,19 @@ class Block:
 
     def undo_rotation(self):
         self.rotation_state -= 1
-        if self.rotation_state == 0:
+        if self.rotation_state < 0:  # תיקנתי כאן באג קטן שהיה
             self.rotation_state = len(self.cells) - 1
 
-    def draw(self, screen, offset_x, offset_y):
+    def draw(self, screen, offset_x, offset_y, cell_size=None):
+        if cell_size is None:  # אם לא שולחים, נשתמש בערך ברירת מחדל
+            cell_size = self.cell_size
+
         tiles = self.get_cell_positions()
         for tile in tiles:
-            tile_rect = pygame.Rect(offset_x + tile.col * self.cell_size, offset_y + tile.row * self.cell_size, self.cell_size -1, self.cell_size -1)
+            tile_rect = pygame.Rect(
+                offset_x + tile.col * cell_size + 11,
+                offset_y + tile.row * cell_size + 11,
+                cell_size - 1,
+                cell_size - 1
+            )
             pygame.draw.rect(screen, self.colors[self.id], tile_rect)
