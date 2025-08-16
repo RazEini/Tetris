@@ -15,6 +15,7 @@ class Game:
         self.next_block = self.get_random_block()
         self.game_over = False
         self.score = 0
+        self.next_rect = pygame.Rect(320, 215, 170, 180)
 
         # מוזיקה
         self.theme = pygame.mixer.Sound("sounds/tetris-theme-korobeiniki-arranged-for-piano-186249.mp3")
@@ -120,10 +121,13 @@ class Game:
         return ghost_tiles
 
     # ================= Draw =================
+    # ================= Draw =================
+
+    # ================= Draw =================
     def draw(self, screen):
         self.grid.draw(screen)
 
-        # Ghost Piece
+    # Ghost Piece
         ghost_positions = self.get_ghost_positions()
         for tile in ghost_positions:
             rect = pygame.Rect(
@@ -135,14 +139,26 @@ class Game:
             pygame.draw.rect(screen, (150, 150, 150), rect)  
             pygame.draw.rect(screen, (200, 200, 200), rect, 1)
 
-        # Current Block
+    # Current Block
         self.current_block.draw(screen, 0, 0, self.CELL_SIZE)
-        
-        # Next Block (שומרים על ה־offset שלה באזור הצדדי)
-        if self.next_block.id == 3:
-            self.next_block.draw(screen, 255, 290, self.CELL_SIZE)
-        elif self.next_block.id == 4:
-            self.next_block.draw(screen, 255, 280, self.CELL_SIZE)
-        else:
-            self.next_block.draw(screen, 270, 270, self.CELL_SIZE)
+
+        # Next Block – מרכז בתוך next_rect
+        next_area_x, next_area_y = self.next_rect.x, self.next_rect.y
+        next_area_width, next_area_height = self.next_rect.width, self.next_rect.height
+
+        tiles = self.next_block.get_cell_positions()
+        min_col = min(t.col for t in tiles)
+        max_col = max(t.col for t in tiles)
+        min_row = min(t.row for t in tiles)
+        max_row = max(t.row for t in tiles)
+
+        block_width = (max_col - min_col + 1) * self.CELL_SIZE
+        block_height = (max_row - min_row + 1) * self.CELL_SIZE
+
+        offset_x = next_area_x + (next_area_width - block_width) // 2 - min_col * self.CELL_SIZE -10
+        offset_y = next_area_y + (next_area_height - block_height) // 2 - min_row * self.CELL_SIZE
+
+        self.next_block.draw(screen, offset_x, offset_y, self.CELL_SIZE)
+
+    
 

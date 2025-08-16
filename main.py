@@ -180,13 +180,28 @@ def draw_menu():
     instr_surf = instr_font.render("Use LEFT/RIGHT arrows", True, Colors.white)
     screen.blit(instr_surf, instr_surf.get_rect(center=(WIDTH//2, 210)))
 
-    # Difficulty buttons
+    # Difficulty buttons with hover effect
+    mouse_pos = pygame.mouse.get_pos()
     for i, (name, ms) in enumerate(DIFFICULTIES):
-        color = Colors.light_blue if i==difficulty_index else Colors.white
-        text = small_font.render(name, True, color)
-        rect = text.get_rect(center=(WIDTH//2 + (i-1)*120,260))
-        pygame.draw.rect(screen, color, rect.inflate(30,15), border_radius=10, width=2)
-        screen.blit(text, rect)
+        # צבע הרקע
+        if i == difficulty_index:
+            rect_color = Colors.white        # המסומן – לבן
+            text_color = Colors.dark_blue    # טקסט כהה כדי שיהיה קריא
+        else:
+            rect_color = Colors.light_blue   # לא מסומן – כחול
+            text_color = Colors.white
+
+        # אפקט hover
+        rect = pygame.Rect(WIDTH//2 + (i-1)*120 - 50, 250, 100, 40)  # רוחב/גובה קבועים
+        if rect.collidepoint(mouse_pos):
+            rect_color = Colors.yellow      # צבע משתנה כשעכבר מעל הכפתור
+
+        pygame.draw.rect(screen, rect_color, rect, border_radius=10)
+        pygame.draw.rect(screen, Colors.white, rect, width=2, border_radius=10)
+
+        # טקסט הכפתור במרכז
+        text_surf = small_font.render(name, True, text_color)
+        screen.blit(text_surf, text_surf.get_rect(center=rect.center))
 
     # Start button
     draw_start_button((WIDTH//2,340))
@@ -194,7 +209,6 @@ def draw_menu():
     # High Score
     hs_surf = small_font.render(f"High Score: {high_score}", True, Colors.yellow)
     screen.blit(hs_surf, hs_surf.get_rect(center=(WIDTH//2,400)))
-
 
 def draw_game_over_buttons():
     global game_over_button_rects
