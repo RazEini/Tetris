@@ -11,8 +11,9 @@ class Game:
         self.next_block = self.get_random_block()
         self.game_over = False
         self.score = 0
-        pygame.mixer.music.load("sounds/tetris-theme-korobeiniki-arranged-for-piano-186249.mp3")
-        pygame.mixer.music.play(-1)
+        self.theme = pygame.mixer.Sound("sounds/tetris-theme-korobeiniki-arranged-for-piano-186249.mp3")
+        self.theme.play(loops=-1)
+
 
     def update_score(self, lines_cleared, move_down_points):
          if lines_cleared == 1:
@@ -56,6 +57,7 @@ class Game:
          self.update_score(rows_cleared, 0)
          if self.block_fits() == False:
              self.game_over = True
+             self.theme.stop()
 
     def reset(self):
         self.grid.reset()
@@ -63,6 +65,7 @@ class Game:
         self.current_block = self.get_random_block()
         self.next_block = self.get_random_block()
         self.score = 0
+        self.theme.play(loops=-1)
 
     def block_fits(self):
         tiles = self.current_block.get_cell_positions()
