@@ -1,27 +1,53 @@
-🎮 Tetris Game
+# 🎮 Tetris Game – Python + Pygame
 
-Desktop game – classic Tetris implementation using Python and Pygame.
+מימוש קלאסי של משחק **טטריס** לדסקטופ, עם אנימציות חלקות, מוזיקת רקע, ורמות קושי משתנות.
 
-🚀 Features
 
-Play classic Tetris with falling tetrominoes
+---
 
-Rotate and move pieces left/right
+## 🚀 Features
 
-Ghost blocks showing where the tetromino will land
+| תחום | תכונה | סטטוס | הערות |
+|------|--------|--------|--------|
+| 🎲 לוגיקת משחק | נפילת טטרומינו קלאסית | ✅ | פיזיקה בסיסית |
+| ↔️ תנועה | הזזה שמאלה/ימינה + סיבוב | ✅ | שליטה במקלדת |
+| 👻 בלוק רפאים | תצוגה מקדימה של מיקום הנחיתה | ✅ | משפר UX |
+| 🧹 ניקוי שורות | ניקוי שורה מלאה והוספת ניקוד | ✅ | מימוש מלא |
+| 📈 ניקוד | מערכת ניקוד דינמית | ✅ | עולה עם רמות |
+| ⚡ רמות קושי | בחירת מהירות/קושי | ✅ | קצב ירידה משתנה |
+| 🎵 סאונד | מוזיקת רקע ואפקטים | ✅ | Pygame.mixer |
+| 💀 סוף משחק | זיהוי מצב Game Over | ✅ | מסך סיום |
+| 🔄 ריסט | התחלת משחק חדש בלחיצה | ✅ | Reset קל |
+| 🎬 אנימציות | תנועה חלקה ורספונסיביות | ✅ | FPS יציב |
 
-Line clearing and score tracking
+---
 
-Selectable difficulty levels to increase challenge
+## 🧭 Roadmap
 
-Background music and sound effects
+| גרסה | מטרה | פיצ'רים מרכזיים |
+|------|-------|----------------|
+| v0.1 | ליבה בסיסית | נפילת בלוקים, תנועה, סיבוב |
+| v0.2 | חוויית משחק | ניקוד, ניקוי שורות, Game Over |
+| v0.3 | UX משופר | בלוק רפאים, רמות קושי, אנימציות |
+| v1.0 | גרסה סופית | מוזיקה/סאונד, ריסט מהיר, פוליש |
 
-Game over detection and restart
+---
 
-Smooth animations and responsive controls
+## ✅ Success Metrics
 
-🛠️ Tech Stack
+| מטרה | מדד | יעד |
+|------|------|------|
+| זרימת משחק | FPS ממוצע | ≥ 60 |
+| שמישות | זמן תגובה לפקודה | ≤ 50ms |
+| ריפלייביליות | משך משחק ממוצע | ≥ 5 דקות |
 
-Python • Pygame • Object-Oriented Programming
+---
 
-👨‍💻 Raz Eini (2025)
+## 🛠️ Tech Stack
+- **Language**: Python  
+- **Library**: Pygame  
+- **Paradigm**: Object-Oriented Programming (OOP)  
+
+---
+
+👨‍💻 **Raz Eini** (2025)
