@@ -21,6 +21,10 @@ class Game:
         self.theme = pygame.mixer.Sound("sounds/tetris-theme-korobeiniki-arranged-for-piano-186249.mp3")
         self.theme.play(loops=-1)
 
+        # אפקטים
+        self.sfx_rotate = pygame.mixer.Sound("sounds/Sounds_rotate.ogg")
+        self.sfx_clear = pygame.mixer.Sound("sounds/Sounds_clear.ogg")
+
     # ================= Score =================
     def update_score(self, lines_cleared, move_down_points):
         if lines_cleared == 1:
@@ -64,6 +68,8 @@ class Game:
         self.current_block = self.next_block
         self.next_block = self.get_random_block()
         rows_cleared = self.grid.clear_full_rows()
+        if rows_cleared > 0:
+            self.sfx_clear.play()
         self.update_score(rows_cleared, 0)
         if not self.block_fits():
             self.game_over = True
@@ -98,6 +104,8 @@ class Game:
         self.current_block.rotate()
         if not self.block_inside() or not self.block_fits():
             self.current_block.undo_rotation()
+        else:
+            self.sfx_rotate.play()
 
     # ================= Ghost Piece =================
     def get_ghost_positions(self):
