@@ -1,33 +1,114 @@
-# 🎮 Tetris Game – Python + Pygame
+<div dir="rtl">
 
-מימוש קלאסי של משחק **טטריס** לדסקטופ, עם אנימציות חלקות, מוזיקת רקע, ורמות קושי משתנות.
+  <h1>🎮 Tetris Game – Python + Pygame</h1>
 
+  <p>
+    מימוש קלאסי של משחק <strong>טטריס</strong> לדסקטופ, עם אנימציות חלקות, מוזיקת רקע, ורמות קושי משתנות.
+  </p>
 
----
+  <p align="right">
+    <img src="https://img.shields.io/badge/Python-100%25-blue" alt="Python Badge">
+    <img src="https://img.shields.io/badge/Pygame-UI-lightgrey" alt="Pygame Badge">
+    <img src="https://img.shields.io/badge/Paradigm-OOP-green" alt="OOP Badge">
+    <img src="https://img.shields.io/badge/License-MIT-blue" alt="License Badge">
+  </p>
 
-## 🚀 Features
+  <hr>
 
-| תחום | תכונה | סטטוס | הערות |
-|------|--------|--------|--------|
-| 🎲 לוגיקת משחק | נפילת טטרומינו קלאסית | ✅ | פיזיקה בסיסית |
-| ↔️ תנועה | הזזה שמאלה/ימינה + סיבוב | ✅ | שליטה במקלדת |
-| 👻 בלוק רפאים | תצוגה מקדימה של מיקום הנחיתה | ✅ | משפר UX |
-| 🧹 ניקוי שורות | ניקוי שורה מלאה והוספת ניקוד | ✅ | מימוש מלא |
-| 📈 ניקוד | מערכת ניקוד דינמית | ✅ | עולה עם רמות |
-| ⚡ רמות קושי | בחירת מהירות/קושי | ✅ | קצב ירידה משתנה |
-| 🎵 סאונד | מוזיקת רקע ואפקטים | ✅ | Pygame.mixer |
-| 💀 סוף משחק | זיהוי מצב Game Over | ✅ | מסך סיום |
-| 🔄 ריסט | התחלת משחק חדש בלחיצה | ✅ | Reset קל |
-| 🎬 אנימציות | תנועה חלקה ורספונסיביות | ✅ | FPS יציב |
+  <h2>🚀 Features</h2>
 
----
+  <table>
+    <thead>
+      <tr>
+        <th>תחום</th>
+        <th>תכונה</th>
+        <th>סטטוס</th>
+        <th>הערות</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>🎲 לוגיקת משחק</td>
+        <td>נפילת טטרומינו קלאסית</td>
+        <td>✅</td>
+        <td>פיזיקה בסיסית</td>
+      </tr>
+      <tr>
+        <td>↔️ תנועה</td>
+        <td>הזזה שמאלה/ימינה + סיבוב</td>
+        <td>✅</td>
+        <td>שליטה במקלדת</td>
+      </tr>
+      <tr>
+        <td>👻 בלוק רפאים</td>
+        <td>תצוגה מקדימה של מיקום הנחיתה</td>
+        <td>✅</td>
+        <td>משפר UX</td>
+      </tr>
+      <tr>
+        <td>🧹 ניקוי שורות</td>
+        <td>ניקוי שורה מלאה והוספת ניקוד</td>
+        <td>✅</td>
+        <td>מימוש מלא</td>
+      </tr>
+      <tr>
+        <td>📈 ניקוד</td>
+        <td>מערכת ניקוד דינמית</td>
+        <td>✅</td>
+        <td>עולה עם רמות</td>
+      </tr>
+      <tr>
+        <td>⚡ רמות קושי</td>
+        <td>בחירת מהירות/קושי</td>
+        <td>✅</td>
+        <td>קצב ירידה משתנה</td>
+      </tr>
+      <tr>
+        <td>🎵 סאונד</td>
+        <td>מוזיקת רקע ואפקטים</td>
+        <td>✅</td>
+        <td>Pygame.mixer</td>
+      </tr>
+      <tr>
+        <td>💀 סוף משחק</td>
+        <td>זיהוי מצב Game Over</td>
+        <td>✅</td>
+        <td>מסך סיום</td>
+      </tr>
+      <tr>
+        <td>🔄 ריסט</td>
+        <td>התחלת משחק חדש בלחיצה</td>
+        <td>✅</td>
+        <td>Reset קל</td>
+      </tr>
+      <tr>
+        <td>🎬 אנימציות</td>
+        <td>תנועה חלקה ורספונסיביות</td>
+        <td>✅</td>
+        <td>FPS יציב</td>
+      </tr>
+    </tbody>
+  </table>
 
+  <hr>
 
-## 🛠️ Tech Stack
-- **Language**: Python  
-- **Library**: Pygame  
-- **Paradigm**: Object-Oriented Programming (OOP)  
+  <h2>🛠️ Tech Stack</h2>
+  <ul>
+    <li><strong>Language:</strong> Python</li>
+    <li><strong>Library:</strong> Pygame</li>
+    <li><strong>Paradigm:</strong> Object-Oriented Programming (OOP)</li>
+  </ul>
 
----
+  <hr>
 
-👨‍💻 **Raz Eini** (2025)
+  <h2>📄 רישיון</h2>
+  <p>
+    הפרויקט מופץ תחת רישיון <strong>MIT</strong> – חופשי לשימוש, שינוי והפצה, כל עוד נשמר קרדיט למחבר.
+  </p>
+  <p>למידע נוסף ראה את קובץ <a href="LICENSE">LICENSE</a></p>
+
+  <hr>
+
+  <p><strong>👨‍💻 Raz Eini (2025)</strong></p>
+
+</div>
