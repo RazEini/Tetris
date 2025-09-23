@@ -35,15 +35,23 @@ class Block:
             self.rotation_state = len(self.cells) - 1
 
     def draw(self, screen, offset_x, offset_y, cell_size=None):
-        if cell_size is None:  # אם לא שולחים, נשתמש בערך ברירת מחדל
+        if cell_size is None:
             cell_size = self.cell_size
 
         tiles = self.get_cell_positions()
         for tile in tiles:
-            tile_rect = pygame.Rect(
-                offset_x + tile.col * cell_size + 11,
-                offset_y + tile.row * cell_size + 11,
-                cell_size - 1,
-                cell_size - 1
-            )
+            x = offset_x + tile.col * cell_size + 11
+            y = offset_y + tile.row * cell_size + 11
+            w = cell_size - 1
+            h = cell_size - 1
+            tile_rect = pygame.Rect(x, y, w, h)
+            # צבע עיקרי
             pygame.draw.rect(screen, self.colors[self.id], tile_rect)
+            # מסגרת כהה
+            pygame.draw.rect(screen, (40, 40, 40), tile_rect, 3)
+            # אפקט תלת־ממדי: קו בהיר למעלה ולשמאל
+            pygame.draw.line(screen, (220, 220, 220), (x, y), (x + w, y), 2)
+            pygame.draw.line(screen, (220, 220, 220), (x, y), (x, y + h), 2)
+            # אפקט תלת־ממדי: קו כהה למטה ולימין
+            pygame.draw.line(screen, (60, 60, 60), (x, y + h), (x + w, y + h), 2)
+            pygame.draw.line(screen, (60, 60, 60), (x + w, y), (x + w, y + h), 2)

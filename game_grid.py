@@ -56,11 +56,31 @@ class Grid:
     def draw(self, screen):
         for row in range(self.number_of_rows):
             for col in range(self.number_of_columns):
+                x = col * self.cell_size + 11
+                y = row * self.cell_size + 11
+                w = self.cell_size - 1
+                h = self.cell_size - 1
+                cell_rect = pygame.Rect(x, y, w, h)
+
+                # קודם כל: צביעת רקע (ככה נשארת הרשת)
+                pygame.draw.rect(screen, (30, 30, 30), cell_rect)  # צבע רקע/רשת
+                pygame.draw.rect(screen, (50, 50, 50), cell_rect, 1)  # קווי רשת דקים
+
                 cell_value = self.grid[row][col]
-                cell_rect = pygame.Rect(
-                    col * self.cell_size + 11,
-                    row * self.cell_size + 11,
-                    self.cell_size - 1,
-                    self.cell_size - 1
-                )
+                if cell_value == 0:
+                    continue
+
+                # צבע עיקרי
                 pygame.draw.rect(screen, self.colors[cell_value], cell_rect)
+
+                # מסגרת כהה
+                pygame.draw.rect(screen, (40, 40, 40), cell_rect, 3)
+
+                # אפקט תלת־ממדי: קו בהיר למעלה ולשמאל
+                pygame.draw.line(screen, (220, 220, 220), (x, y), (x + w, y), 2)
+                pygame.draw.line(screen, (220, 220, 220), (x, y), (x, y + h), 2)
+
+                # אפקט תלת־ממדי: קו כהה למטה ולימין
+                pygame.draw.line(screen, (60, 60, 60), (x, y + h), (x + w, y + h), 2)
+                pygame.draw.line(screen, (60, 60, 60), (x + w, y), (x + w, y + h), 2)
+
