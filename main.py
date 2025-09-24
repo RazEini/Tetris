@@ -337,13 +337,21 @@ while True:
                     start_game()
                 elif event.key==pygame.K_ESCAPE:
                     pygame.quit(); sys.exit()
-            elif event.type==pygame.MOUSEBUTTONDOWN and event.button==1:
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                for i, (name, ms) in enumerate(DIFFICULTIES):
+                    rect = pygame.Rect(WIDTH//2 + (i-1)*120 - 50, 250, 100, 40)
+                    if rect.collidepoint(event.pos):
+                        difficulty_index = i
+                        set_drop_timer(DIFFICULTIES[difficulty_index][1]) 
+                        
                 for i, rect in enumerate(menu_button_rects):
                     if rect.collidepoint(event.pos):
-                        if menu_buttons[i]=="START GAME": start_game()
-                        elif menu_buttons[i]=="LEADERBOARD":
+                        if menu_buttons[i] == "START GAME":
+                            start_game()
+                        elif menu_buttons[i] == "LEADERBOARD":
                             prev_state = STATE_MENU
                             state = STATE_LEADERBOARD
+
 
         # --- Playing ---
         elif state==STATE_PLAYING:
