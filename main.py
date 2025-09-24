@@ -120,7 +120,7 @@ def draw_menu():
         rect_color = Colors.white if i==difficulty_index else Colors.light_blue
         text_color = Colors.dark_blue if i==difficulty_index else Colors.white
         rect = pygame.Rect(WIDTH//2 + (i-1)*120 - 50, 250, 100, 40)
-        if rect.collidepoint(mouse_pos): rect_color = Colors.yellow
+        if rect.collidepoint(mouse_pos): rect_color = Colors.cyan
         pygame.draw.rect(screen, rect_color, rect, border_radius=10)
         pygame.draw.rect(screen, Colors.white, rect, width=2, border_radius=10)
         text_surf = small_font.render(name, True, text_color)
