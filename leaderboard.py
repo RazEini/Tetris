@@ -16,8 +16,9 @@ def load_leaderboard():
             return []
 
 def save_leaderboard(entries):
-    # מיון לפני שמירה
+    # מיון מהגבוה לנמוך
     entries.sort(key=lambda x: x["score"], reverse=True)
+    entries = entries[:20]
     with open(LEADERBOARD_FILE, "w", encoding="utf-8") as f:
         json.dump(entries, f, ensure_ascii=False, indent=4)
 
