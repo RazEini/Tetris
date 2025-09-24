@@ -227,39 +227,98 @@ def draw_enter_name():
     return rect, submit_rect  # נחזיר את ה־rects בשביל טיפול בלחיצה
 
 # ---------- Leaderboard ----------
-def draw_leaderboard():
-    overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
-    overlay.fill((0,0,0,220))
-    screen.blit(overlay, (0,0))
-    title_surf = title_font.render("LEADERBOARD", True, Colors.yellow)
-    outline = title_font.render("LEADERBOARD", True, Colors.white)
-    screen.blit(outline, title_surf.get_rect(center=(WIDTH//2+2,80)))
-    screen.blit(title_surf, title_surf.get_rect(center=(WIDTH//2,78)))
-    
-    entries = load_leaderboard()
-    start_y = 150
-    row_height = 40
-    max_display = 10
-    for i, entry in enumerate(entries[leaderboard_scroll:leaderboard_scroll+max_display]):
-        bg_color = (30,30,50) if i%2==0 else (50,50,70)
-        rect = pygame.Rect(50, start_y+i*row_height, WIDTH-100, row_height-5)
-        pygame.draw.rect(screen, bg_color, rect, border_radius=5)
-        pygame.draw.rect(screen, Colors.white, rect, 2, border_radius=5)
-        name_text = f"{leaderboard_scroll+i+1}. {entry['name']}"
-        score_text = f"{entry['score']}"
-        name_surf = small_font.render(name_text, True, Colors.white)
-        score_surf = small_font.render(score_text, True, Colors.yellow)
-        screen.blit(name_surf, (rect.x+10, rect.y+10))
-        screen.blit(score_surf, (rect.right-score_surf.get_width()-10, rect.y+10))
+ROW_HEIGHT = 50
+BUTTON_HEIGHT = 40
+BUTTON_MARGIN = 20
+TOP_MARGIN = 150
+LEADERBOARD_MAX_DISPLAY = (HEIGHT - (BUTTON_HEIGHT + BUTTON_MARGIN) - TOP_MARGIN) // ROW_HEIGHT
 
-    back_rect = pygame.Rect(WIDTH//2-70, HEIGHT-80, 140, 40)
+
+def draw_text_with_outline(text, font, text_color, outline_color, pos, surface):
+    """מצייר טקסט עם outline לבן סביבו"""
+    base = font.render(text, True, text_color)
+    outline = font.render(text, True, outline_color)
+    x, y = pos
+    # צל לבן מכל הכיוונים
+    for dx in [-2, -1, 1, 2]:
+        for dy in [-2, -1, 1, 2]:
+            surface.blit(outline, (x+dx, y+dy))
+    surface.blit(base, (x, y))
+
+
+# טעינת המדליות פעם אחת (מחוץ לפונקציה)
+trophy_gold   = pygame.image.load("images/medal-gold.png").convert_alpha()
+trophy_silver = pygame.image.load("images/medal-silver.png").convert_alpha()
+trophy_bronze = pygame.image.load("images/medal-bronze.png").convert_alpha()
+
+trophy_gold   = pygame.transform.scale(trophy_gold, (24,24))
+trophy_silver = pygame.transform.scale(trophy_silver, (24,24))
+trophy_bronze = pygame.transform.scale(trophy_bronze, (24,24))
+
+
+def draw_leaderboard():
+    global leaderboard_scroll
+    draw_gradient_background_with_tetris_static(screen, (20,20,60), (60,0,80))
+
+    # overlay שקוף
+    overlay = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
+    overlay.fill((0,0,0,120))
+    screen.blit(overlay, (0,0))
+
+    # כותרת
+    draw_text_with_outline("LEADERBOARD", title_font, Colors.yellow, Colors.white,
+                           (WIDTH//2 - 160, 70), screen)
+
+    entries = load_leaderboard()
+    max_display = LEADERBOARD_MAX_DISPLAY
+
+    # הגבלת גלילה
+    max_scroll = max(0, len(entries) - max_display)
+    leaderboard_scroll = max(0, min(leaderboard_scroll, max_scroll))
+
+    # אזור רשימה
+    list_height = max_display * ROW_HEIGHT
+    list_rect = pygame.Rect(50, TOP_MARGIN, WIDTH-100, list_height)
+    list_surface = pygame.Surface((list_rect.width, ROW_HEIGHT*len(entries)), pygame.SRCALPHA)
+
+    # ציור שורות
+    for i, entry in enumerate(entries):
+        rank = i + 1
+        if rank == 1: bg_color = (255,215,0)
+        elif rank == 2: bg_color = (192,192,192)
+        elif rank == 3: bg_color = (205,127,50)
+        else: bg_color = (40,40,70)
+
+        rect = pygame.Rect(0, i*ROW_HEIGHT, list_rect.width, ROW_HEIGHT-5)
+        pygame.draw.rect(list_surface, bg_color, rect, border_radius=12)
+        pygame.draw.rect(list_surface, Colors.white, rect, 2, border_radius=12)
+
+        # טקסט
+        name_text = f"{rank}. {entry['name']}"
+        score_text = f"{entry['score']}"
+        draw_text_with_outline(name_text, small_font, Colors.white, Colors.black, (10, rect.y+10), list_surface)
+        draw_text_with_outline(score_text, small_font, Colors.yellow, Colors.black, (rect.width-100, rect.y+10), list_surface)
+
+        # אייקון מדליה
+        if rank == 1: list_surface.blit(trophy_gold, (rect.width-40, rect.y+8))
+        elif rank == 2: list_surface.blit(trophy_silver, (rect.width-40, rect.y+8))
+        elif rank == 3: list_surface.blit(trophy_bronze, (rect.width-40, rect.y+8))
+
+    # הצגת ה־Viewport
+    screen.blit(list_surface, (list_rect.x, list_rect.y),
+                area=pygame.Rect(0, leaderboard_scroll*ROW_HEIGHT, list_rect.width, list_rect.height))
+
+    # Back button בתחתית
+    back_rect = pygame.Rect(WIDTH//2-70, HEIGHT-(BUTTON_HEIGHT+BUTTON_MARGIN), 140, BUTTON_HEIGHT)
     mouse_pos = pygame.mouse.get_pos()
     color = Colors.light_blue if back_rect.collidepoint(mouse_pos) else Colors.dark_blue
     pygame.draw.rect(screen, color, back_rect, border_radius=10)
-    pygame.draw.rect(screen, Colors.white, back_rect, width=2, border_radius=10)
+    pygame.draw.rect(screen, Colors.white, back_rect, 2, border_radius=10)
     back_surf = small_font.render("Back", True, Colors.white)
     screen.blit(back_surf, back_surf.get_rect(center=back_rect.center))
+
     return back_rect
+
 
 # ---------- Main Loop ----------
 while True:
@@ -326,24 +385,24 @@ while True:
                             state = STATE_LEADERBOARD
 
         # --- Leaderboard ---
-        elif state==STATE_LEADERBOARD:
-            if event.type==pygame.MOUSEBUTTONDOWN and event.button==1:
-                back_rect = pygame.Rect(WIDTH//2-70, HEIGHT-80, 140, 40)
+        elif state == STATE_LEADERBOARD:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    leaderboard_scroll = max(0, leaderboard_scroll-1)
+                elif event.key == pygame.K_DOWN:
+                    entries = load_leaderboard()
+                    max_scroll = max(0, len(entries)-LEADERBOARD_MAX_DISPLAY)
+                    leaderboard_scroll = min(leaderboard_scroll+1, max_scroll)
+            elif event.type == pygame.MOUSEWHEEL:
+                entries = load_leaderboard()
+                max_scroll = max(0, len(entries)-LEADERBOARD_MAX_DISPLAY)
+                leaderboard_scroll -= event.y
+                leaderboard_scroll = max(0, min(leaderboard_scroll, max_scroll))
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                back_rect = draw_leaderboard()
                 if back_rect.collidepoint(event.pos):
                     state = prev_state
-                elif event.type==pygame.KEYDOWN:
-                    if event.key==pygame.K_UP:
-                        leaderboard_scroll = max(0, leaderboard_scroll-1)
-                    elif event.key==pygame.K_DOWN:
-                        entries = load_leaderboard()
-                        max_scroll = max(0, len(entries)-10)
-                        leaderboard_scroll = min(leaderboard_scroll+1, max_scroll)
-                elif event.type == pygame.MOUSEWHEEL:
-                    entries = load_leaderboard()
-                    max_scroll = max(0, len(entries)-10)
-                    # event.y >0 = גלילה מעלה, event.y <0 = גלילה מטה
-                    leaderboard_scroll -= event.y
-                    leaderboard_scroll = max(0, min(leaderboard_scroll, max_scroll))
+                    
 
         # --- Enter Name ---
         elif state==STATE_ENTER_NAME:
