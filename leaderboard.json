@@ -1,5 +1,9 @@
 [
     {
+        "name": "raz eini",
+        "score": 986
+    },
+    {
         "name": "raz",
         "score": 563
     },
@@ -25,6 +29,10 @@
     },
     {
         "name": "user3",
+        "score": 55
+    },
+    {
+        "name": "user3",
         "score": 47
     },
     {
@@ -42,6 +50,10 @@
     {
         "name": "user20",
         "score": 38
+    },
+    {
+        "name": "user",
+        "score": 28
     },
     {
         "name": "raz",

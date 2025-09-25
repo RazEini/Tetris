@@ -326,6 +326,10 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit(); sys.exit()
 
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if game and game.music_icon_rect.collidepoint(event.pos):
+                game.toggle_music()
+
         # --- Menu ---
         if state==STATE_MENU:
             if event.type==pygame.KEYDOWN:

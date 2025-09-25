@@ -20,10 +20,24 @@ class Game:
         # מוזיקה
         self.theme = pygame.mixer.Sound("sounds/tetris-theme-korobeiniki-arranged-for-piano-186249.mp3")
         self.theme.play(loops=-1)
+        self.music_muted = False
 
         # אפקטים
         self.sfx_rotate = pygame.mixer.Sound("sounds/Sounds_rotate.ogg")
         self.sfx_clear = pygame.mixer.Sound("sounds/Sounds_clear.ogg")
+
+        # טעינת אייקונים
+        try:
+            self.icon_sound_on = pygame.image.load("images/volume-on.png")
+            self.icon_sound_off = pygame.image.load("images/volume-off.png")
+            self.icon_sound_on = pygame.transform.scale(self.icon_sound_on, (32, 32))
+            self.icon_sound_off = pygame.transform.scale(self.icon_sound_off, (32, 32))
+            self.icons_loaded = True
+        except:
+            self.icons_loaded = False  # fallback אם אין קבצי תמונה
+
+        # מיקום אייקון
+        self.music_icon_rect = pygame.Rect(500 - 32 - 20, 620 - 32 - 20, 32, 32)
 
     # ================= Score =================
     def update_score(self, lines_cleared, move_down_points):
@@ -83,7 +97,17 @@ class Game:
         self.next_block = self.get_random_block()
         self.score = 0
         self.game_over = False
-        self.theme.play(loops=-1)
+        if not self.music_muted:
+            self.theme.play(loops=-1)
+
+    # ================= Toggle Music =================
+    def toggle_music(self):
+        if self.music_muted:
+            self.theme.play(loops=-1)
+            self.music_muted = False
+        else:
+            self.theme.stop()
+            self.music_muted = True
 
     # ================= Block Validations =================
     def block_fits(self):
@@ -109,12 +133,11 @@ class Game:
 
     # ================= Ghost Piece =================
     def get_ghost_positions(self):
-    # יוצרים רשימה של תאי הבלוק הנוכחי
+        # יוצרים רשימה של תאי הבלוק הנוכחי
         ghost_tiles = [Position(t.row, t.col) for t in self.current_block.get_cell_positions()]
 
-    # מפילים את הבלוק עד שלא ניתן לרדת
+        # מפילים את הבלוק עד שלא ניתן לרדת
         while True:
-        # בדיקה אם ניתן לרדת
             fits = True
             for t in ghost_tiles:
                 if not self.grid.is_inside(t.row + 1, t.col) or not self.grid.is_empty(t.row + 1, t.col):
@@ -122,20 +145,15 @@ class Game:
                     break
             if not fits:
                 break
-        # מזיזים את כל התאים שורה אחת למטה
             for t in ghost_tiles:
                 t.row += 1
-            
         return ghost_tiles
-
-    # ================= Draw =================
-    # ================= Draw =================
 
     # ================= Draw =================
     def draw(self, screen):
         self.grid.draw(screen)
 
-    # Ghost Piece
+        # Ghost Piece
         ghost_positions = self.get_ghost_positions()
         for tile in ghost_positions:
             rect = pygame.Rect(
@@ -143,11 +161,11 @@ class Game:
                 tile.row * self.CELL_SIZE + 11,
                 self.CELL_SIZE - 1,
                 self.CELL_SIZE - 1
-                )
+            )
             pygame.draw.rect(screen, (150, 150, 150), rect)  
             pygame.draw.rect(screen, (200, 200, 200), rect, 1)
 
-    # Current Block
+        # Current Block
         self.current_block.draw(screen, 0, 0, self.CELL_SIZE)
 
         # Next Block – מרכז בתוך next_rect
@@ -163,10 +181,22 @@ class Game:
         block_width = (max_col - min_col + 1) * self.CELL_SIZE
         block_height = (max_row - min_row + 1) * self.CELL_SIZE
 
-        offset_x = next_area_x + (next_area_width - block_width) // 2 - min_col * self.CELL_SIZE -10
+        offset_x = next_area_x + (next_area_width - block_width) // 2 - min_col * self.CELL_SIZE - 10
         offset_y = next_area_y + (next_area_height - block_height) // 2 - min_row * self.CELL_SIZE
 
         self.next_block.draw(screen, offset_x, offset_y, self.CELL_SIZE)
 
-    
+        # ציור אייקון מוזיקה
+        self.draw_music_icon(screen)
 
+    # ================= Draw Music Icon =================
+    def draw_music_icon(self, screen):
+        if self.icons_loaded:
+            if self.music_muted:
+                screen.blit(self.icon_sound_off, self.music_icon_rect.topleft)
+            else:
+                screen.blit(self.icon_sound_on, self.music_icon_rect.topleft)
+        else:
+            # fallback: ריבוע צבעוני
+            color = (200, 0, 0) if self.music_muted else (0, 200, 0)
+            pygame.draw.rect(screen, color, self.music_icon_rect)
