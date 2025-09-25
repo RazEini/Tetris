@@ -6,6 +6,29 @@
     מימוש קלאסי של משחק <strong>טטריס</strong> לדסקטופ, עם אנימציות חלקות, מוזיקת רקע, רמות קושי משתנות, ומסכי אינטראקציה משודרגים.
   </p>
 
+  <!-- גלריה ל-GitHub README.md -->
+<table>
+  <tr>
+    <td align="center">
+      <img src="images/tetris_image1.PNG" width="250" alt="מסך פתיחה" />
+      <br><b>מסך פתיחה</b>
+    </td>
+    <td align="center">
+      <img src="images/tetris_image2.PNG" width="250" alt="מסך משחק" />
+      <br><b>מסך משחק</b>
+    </td>
+    <td align="center">
+      <img src="images/tetris_image3.PNG" width="250" alt="לוח מובילים" />
+      <br><b>לוח מובילים</b>
+    </td>
+    <td align="center">
+      <img src="images/tetris_image4.PNG" width="250" alt="מסך סיום" />
+      <br><b>מסך סיום</b>
+    </td>
+  </tr>
+</table>
+
+
   <p align="right">
     <img src="https://img.shields.io/badge/Python-100%25-blue" alt="Python Badge">
     <img src="https://img.shields.io/badge/Pygame-UI-lightgrey" alt="Pygame Badge">
