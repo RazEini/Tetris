@@ -155,7 +155,6 @@
   <li><code>medal-gold.png</code></li>
   <li><code>medal-silver.png</code></li>
   <li><code>medal-bronze.png</code></li>
-  <li>תמונות מסכי המשחק: <code>tetris_image1.PNG</code>, <code>tetris_image2.PNG</code>, <code>tetris_image3.PNG</code>, <code>tetris_image4.PNG</code></li>
 </ul>
 
 <p>
