@@ -121,6 +121,49 @@
 
   <hr>
 
+<h2>⚙️ Installation / התקנה</h2>
+
+<p>
+  כדי להריץ את המשחק, יש צורך ב־<strong>Python 3.8+</strong> ובספריית <strong>Pygame</strong>.  
+  מודולים נוספים כמו <code>os</code>, <code>sys</code>, <code>json</code> ו־<code>random</code> מובנים כבר ב‑Python ואין צורך בהתקנה נפרדת.
+</p>
+
+<table>
+  <tr>
+    <td><strong>שלב 1:</strong> התקנת Pygame</td>
+    <td><code>pip install pygame</code></td>
+  </tr>
+  <tr>
+    <td><strong>שלב 2:</strong> הרצת המשחק</td>
+    <td><code>python main.py</code></td>
+  </tr>
+</table>
+
+<p>
+  כאשר המשחק רץ לראשונה, הקבצים הבאים נוצרים אוטומטית אם הם אינם קיימים:
+</p>
+<ul>
+  <li><code>leaderboard.json</code> – רשימת השיאים (Leaderboard)</li>
+  <li><code>config.json</code> – שמירת הגדרות המשתמש</li>
+  <li><code>highscore.txt</code> – ניקוד הגבוה ביותר</li>
+</ul>
+
+<p>
+  יש לוודא שהתיקייה <code>images/</code> קיימת ומכילה את כל התמונות הדרושות:
+</p>
+<ul>
+  <li><code>medal-gold.png</code></li>
+  <li><code>medal-silver.png</code></li>
+  <li><code>medal-bronze.png</code></li>
+  <li>תמונות מסכי המשחק: <code>tetris_image1.PNG</code>, <code>tetris_image2.PNG</code>, <code>tetris_image3.PNG</code>, <code>tetris_image4.PNG</code></li>
+</ul>
+
+<p>
+  לאחר ההתקנה, פשוט הריצו את הקובץ הראשי:
+  <code>python main.py</code>
+</p>
+
+
   <h2>🛠️ Tech Stack</h2>
   <ul>
     <li><strong>Language:</strong> Python</li>
