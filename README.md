@@ -6,6 +6,13 @@
     מימוש קלאסי של משחק <strong>טטריס</strong> לדסקטופ, עם אנימציות חלקות, מוזיקת רקע, רמות קושי משתנות, ומסכי אינטראקציה משודרגים.
   </p>
 
+   <p align="right">
+    <img src="https://img.shields.io/badge/Python-100%25-blue" alt="Python Badge">
+    <img src="https://img.shields.io/badge/Pygame-UI-lightgrey" alt="Pygame Badge">
+    <img src="https://img.shields.io/badge/Paradigm-OOP-green" alt="OOP Badge">
+    <img src="https://img.shields.io/badge/License-MIT-blue" alt="License Badge">
+  </p>
+
   <!-- גלריה ל-GitHub README.md -->
 <table>
   <tr>
@@ -27,14 +34,6 @@
     </td>
   </tr>
 </table>
-
-
-  <p align="right">
-    <img src="https://img.shields.io/badge/Python-100%25-blue" alt="Python Badge">
-    <img src="https://img.shields.io/badge/Pygame-UI-lightgrey" alt="Pygame Badge">
-    <img src="https://img.shields.io/badge/Paradigm-OOP-green" alt="OOP Badge">
-    <img src="https://img.shields.io/badge/License-MIT-blue" alt="License Badge">
-  </p>
 
   <hr>
 
